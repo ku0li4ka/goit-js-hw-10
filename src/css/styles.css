@@ -32,7 +32,6 @@ img {
   max-width: 100%;
   height: auto;
 }
-@import url('./reset.css');
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
