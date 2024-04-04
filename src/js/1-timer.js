@@ -38,10 +38,14 @@ function isFutureDate(selectedDate) {
   return selectedDate.getTime() > Date.now();
 }
 
+const currentDate = new Date(); 
+const currentDateTimeString = currentDate.toISOString();
+
 const fp = flatpickr(datetimePicker, {
   enableTime: true,
   time_24hr: true,
   minuteIncrement: 1,
+  defaultDate: currentDateTimeString, 
   onClose: function(selectedDates) {
     const selectedDate = selectedDates[0];
     if (selectedDate && isFutureDate(selectedDate)) {
@@ -59,7 +63,7 @@ const fp = flatpickr(datetimePicker, {
 startButton.addEventListener('click', () => {
   const selectedDate = fp.selectedDates[0];
   startButton.disabled = true;
-  fp.destroy();
+  fp.input.disabled = true;
   const targetTime = selectedDate.getTime();
   const timerInterval = setInterval(() => {
     const currentTime = Date.now();
@@ -67,6 +71,7 @@ startButton.addEventListener('click', () => {
         if (remainingTime <= 0) {
       clearInterval(timerInterval);
       updateTimerDisplay({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      fp.input.disabled = false; 
       iziToast.success({
         title: 'Countdown Finished',
         message: 'The countdown has ended!',

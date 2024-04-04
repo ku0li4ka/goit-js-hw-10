@@ -5,15 +5,13 @@ const form = document.querySelector('.form');
 
 function createPromise(delay, state) {
   return new Promise((resolve, reject) => {
-    if (state === 'fulfilled') {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (state === 'fulfilled') {
         resolve(delay);
-      }, delay);
-    } else {
-      setTimeout(() => {
+      } else {
         reject(delay);
-      }, delay);
-    }
+      }
+    }, delay);
   });
 }
 
